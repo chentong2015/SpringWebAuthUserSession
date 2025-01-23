@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+   <body>
+      <h1>Public Testing Page</h1>
+      <h4> This is public secure information</h4>
+      <h4> This is public secure information</h4>
+
+      <button type="button" id="Logout" onclick="logoutUser()">Log Out</button>
+
+      <br><br>
+      Back to you Account Space: <button type="button" onclick="window.location.href='/user'">Account Space</button>
+
+      <script type="text/javascript" th:src="@{script.js}"></script>
+   </body>
+</html>
