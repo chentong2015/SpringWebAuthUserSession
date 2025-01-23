@@ -1,0 +1,6 @@
+model\JwtResponse.class
+controller\AuthSessionController.class
+model\UserRole.class
+WebSessionPageApplication.class
+controller\WebPageController.class
+model\UserRequest.class

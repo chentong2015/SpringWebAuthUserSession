@@ -1,0 +1,19 @@
+TODO. JWT Token验证流程
+1. 用户使用用户名密码来请求服务器
+2. 服务器进行验证用户的信息
+3. 服务器通过验证发送给用户一个token
+4. 客户端存储session token并在请求时附上token
+5. 服务端验证token值并返回数据
+
+TODO: JWT Token签发策略
+1. JWT在服务器端签发生成，避免客户端伪造有效的Token
+2. Payload负载中应该包含当前用户信息(非敏感信息)
+3. Header令牌头中不应存放过多信息
+3. 令牌头和负载均为JSON结构，编码签名后用“.”连接成令牌报文
+
+TODO. JWT Token持久化
+1. Session Token is standard for securing a stateless application
+2. Session Token采用后端签发，前端存储的解决方案
+3. Token单节点服务可存放在Session中，集群服务可存放在集群缓存中
+
+https://github.com/jwtk/jjwt
