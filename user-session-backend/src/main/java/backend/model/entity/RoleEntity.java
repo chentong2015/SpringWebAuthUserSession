@@ -1,6 +1,6 @@
 package backend.model.entity;
 
-import backend.model.RoleName;
+import backend.model.bean.RoleName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;

@@ -21,13 +21,13 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
     }
 
     @Override
-    public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse response,
-                                Authentication authentication) throws IOException {
+    public void onLogoutSuccess(HttpServletRequest httpServletRequest,
+                                HttpServletResponse response, Authentication authentication) throws IOException {
         Map<String, String> result = new HashMap<>();
         result.put("Result", "Logout Successfully");
 
         response.setContentType("application/json");
         response.getWriter().write(objectMapper.writeValueAsString(result));
-        response.setStatus(HttpServletResponse.SC_OK); // Status Code 200
+        response.setStatus(HttpServletResponse.SC_OK);
     }
 }

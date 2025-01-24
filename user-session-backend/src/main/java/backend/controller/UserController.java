@@ -1,8 +1,11 @@
 package backend.controller;
 
-import backend.model.PasswordChanger;
+import backend.exception.ResourceConflictException;
+import backend.model.bean.PasswordChanger;
+import backend.model.bean.UserRequest;
 import backend.model.entity.UserEntity;
 import backend.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +25,18 @@ public class UserController {
         this.userService = userService;
     }
 
+    // 当抛出异常时返回Exception ResponseEntity
+    @PostMapping("/register")
+    public ResponseEntity<?> registerUser(@RequestBody UserRequest userRequest) {
+        UserEntity existUser = this.userService.findUserByUsername(userRequest.getUsername());
+        if (existUser != null) {
+            throw new ResourceConflictException(userRequest.getId(), "Username already exists");
+        }
+
+        UserEntity user = this.userService.persistUser(userRequest);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    }
+
     @PostMapping("/changePassword")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
         this.userService.changePassword(passwordChanger);
@@ -36,7 +51,6 @@ public class UserController {
         return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    // findUserByUsername()会确保用户具体指定的Role
     @GetMapping("/showme/{username}")
     public UserEntity showMe(@PathVariable String username) {
         return this.userService.findUserByUsername(username);

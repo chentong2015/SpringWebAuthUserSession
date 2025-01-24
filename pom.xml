@@ -12,7 +12,6 @@
     <modules>
         <module>jwt-token</module>
         <module>user-session-backend</module>
-        <module>user-session-client</module>
     </modules>
 
     <properties>

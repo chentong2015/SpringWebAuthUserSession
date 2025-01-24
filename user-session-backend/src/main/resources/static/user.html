@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+   <head>
+      <link rel="shortcut icon" href="#">
+   </head>
+   <body>
+      <h1>User Testing Page</h1>
+      <input name="username" id="username" type="text"/> <br><br>
+      <button type="button" id="ShowMeInfo">Show Me</button>
+      <p></p>
+      <button type="button" id="WhoamiInfo">Whoami</button>
+
+      <br><br><br>
+      Old Password: <input name="oldPassword" id="oldPassword" type="text"/> <br><br>
+      New Password: <input name="newPassword" id="newPassword" type="text"/> <br><br>
+      <button type="button" id="UpdatePassword">Update Password</button>
+
+      <br><br><br>
+      <button type="button" id="LogoutUser">Log Out</button>
+
+      <br><br><br>
+      <p>Visit Public Secure Web Page</p>
+      <button type="button" onclick="window.location.href='public-secure.html'">Public Space</button>
+
+      <script>
+         var showMeInfoButton = document.getElementById("ShowMeInfo");
+         showMeInfoButton.addEventListener("click", function (e) {
+             const name = document.getElementById("username").value;
+             fetch('http://localhost:8080/api/showme/' + name,
+               {
+                  method: 'GET',
+                  credentials: 'include'
+               })
+               .then(response => console.log(response));
+         });
+
+         var whoamiInfoButton = document.getElementById("WhoamiInfo");
+         whoamiInfoButton.addEventListener("click", function (e) {
+             fetch('http://localhost:8080/api/whoami',
+              {
+                 method: 'GET',
+                 credentials: 'include'
+              })
+              .then(response => console.log(response));
+         });
+
+         var updatePasswordButton = document.getElementById("UpdatePassword");
+         updatePasswordButton.addEventListener("click", function (e) {
+             const oldPassword = document.getElementById("oldPassword").value;
+             const newPassword = document.getElementById("newPassword").value;
+             fetch('http://localhost:8080/api/changePassword',
+               {
+                  method: 'POST',
+                  credentials: 'include'
+                  headers: {
+                     'Content-Type': 'application/json; charset=utf-8'
+                  },
+                  body: JSON.stringify(
+                  {
+                     "oldPassword": oldPassword,
+                     "newPassword": newPassword
+                  })
+               })
+               .then(response => console.log(response));
+         });
+
+         var logoutUserButton = document.getElementById("LogoutUser");
+         logoutUserButton.addEventListener("click", function (e) {
+             fetch('http://localhost:8080/api/logout',
+               {
+                  method: 'POST',
+                  credentials: 'include'
+               })
+               .then(response => console.log(response));
+
+             window.location.href="login.html";
+         });
+      </script>
+   </body>
+</html>

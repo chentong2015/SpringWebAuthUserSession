@@ -8,8 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="user-session-backend" />
         <module name="jwt-token" />
-        <module name="user-session-client" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="user-session-client" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

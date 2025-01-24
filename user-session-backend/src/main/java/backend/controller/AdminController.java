@@ -1,6 +1,7 @@
 package backend.controller;
 
 import backend.model.entity.UserEntity;
+import backend.service.UserAdminService;
 import backend.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,19 +15,19 @@ import java.util.List;
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminController {
 
-    private UserService userService;
+    private UserAdminService adminService;
 
-    public AdminController(UserService userService) {
-        this.userService = userService;
+    public AdminController(UserAdminService adminService) {
+        this.adminService = adminService;
     }
 
     @GetMapping("/user/{userId}")
     public UserEntity loadUserById(@PathVariable Long userId) {
-        return this.userService.findUserById(userId);
+        return this.adminService.findUserById(userId);
     }
 
     @GetMapping("/user/all")
     public List<UserEntity> loadAllUsers() {
-        return this.userService.findAllUsers();
+        return this.adminService.findAllUsers();
     }
 }

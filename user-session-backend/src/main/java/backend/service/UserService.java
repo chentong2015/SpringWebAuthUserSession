@@ -1,13 +1,12 @@
 package backend.service;
 
-import backend.model.PasswordChanger;
-import backend.model.RoleName;
-import backend.model.UserRequest;
+import backend.model.bean.PasswordChanger;
+import backend.model.bean.RoleName;
+import backend.model.bean.UserRequest;
 import backend.model.entity.RoleEntity;
 import backend.model.entity.UserEntity;
 import backend.repository.RoleRepository;
 import backend.repository.UserRepository;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,27 +17,31 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO. 关于User用户的相关操作
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
-    private final PasswordEncoder globalPasswordEncoder;
+    private final PasswordEncoder pwdEncoder;
 
     public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.globalPasswordEncoder = passwordEncoder;
+        this.pwdEncoder = passwordEncoder;
     }
 
+    // 注册用户时，持久化存储用户的信息
+    // 持久化UserEntity对象之前必须先设置它的ID
     public UserEntity persistUser(UserRequest userRequest) {
         UserEntity user = new UserEntity();
+        user.setId(userRequest.getId());
         user.setUsername(userRequest.getUsername());
-        user.setPassword(globalPasswordEncoder.encode(userRequest.getPassword()));
+        user.setPassword(pwdEncoder.encode(userRequest.getPassword()));
         user.setFirstname(userRequest.getFirstname());
         user.setLastname(userRequest.getLastname());
 
-        // TODO. 为不同类型的用户分配不同的权限Authority
+        // 为不同类型用户分配不同权限Authority
         List<RoleEntity> authorities = new ArrayList<>();
         authorities.add(roleRepository.findByName(RoleName.ROLE_USER));
         if (userRequest.getUsername().equals("admin")) {
@@ -49,37 +52,21 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    // TODO. 必须验证提供的Old密码是当前用户密码才能修改 !!
+    // 在Auth授权登录成功后，修改用户密码
     public void changePassword(PasswordChanger passwordChanger) {
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
-        String username = currentUser.getName();
-        String userPassword = (String) currentUser.getCredentials();
-        String oldPassword = passwordChanger.getOldPassword();
 
-        UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
+        UserEntity userEntity = this.userRepository.findByUsername(currentUser.getName()).orElse(null);
         if (userEntity == null) {
             throw new UsernameNotFoundException("No user found");
         }
 
-        String newPasswordEncoded = globalPasswordEncoder.encode(passwordChanger.getNewPassword());
+        String newPasswordEncoded = pwdEncoder.encode(passwordChanger.getNewPassword());
         userEntity.setPassword(newPasswordEncoded);
         this.userRepository.save(userEntity);
     }
 
-    // 必须要User Role角色才能查看用户数据
-    @PreAuthorize("hasRole('USER')")
     public UserEntity findUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepository.findByUsername(username).orElse(null);
-    }
-
-    // 必须要ADMIN Role角色才能查看用户数据
-    @PreAuthorize("hasRole('ADMIN')")
-    public UserEntity findUserById(Long id) throws AccessDeniedException {
-        return this.userRepository.findById(id).orElse(null);
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
-    public List<UserEntity> findAllUsers() throws AccessDeniedException {
-        return this.userRepository.findAll();
     }
 }
