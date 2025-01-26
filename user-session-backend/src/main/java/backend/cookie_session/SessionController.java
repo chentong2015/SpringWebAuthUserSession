@@ -1,5 +1,6 @@
 package backend.cookie_session;
 
+import backend.model.bean.TokenState;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jwt.JwtTokenProvider;
@@ -15,16 +16,16 @@ public class SessionController {
 
     @GetMapping("/session/refresh")
     public ResponseEntity<?> refreshAuthenticationToken(HttpServletRequest request, HttpServletResponse response) {
-        String authToken = CookieManager.getTokenFromAuthHeader(request);
+        String authToken = TokenProcessor.fetchToken(request);
         if (authToken == null) {
-            SessionTokenState tokenState = new SessionTokenState();
+            TokenState tokenState = new TokenState();
             return ResponseEntity.accepted().body(tokenState);
         }
 
         String refreshedToken = JwtTokenProvider.refreshJwtToken(authToken);
         CookieManager.addTokenToResponse(response, refreshedToken);
 
-        SessionTokenState tokenState = new SessionTokenState(refreshedToken, 600);
+        TokenState tokenState = new TokenState(refreshedToken, 600);
         return ResponseEntity.ok().body(tokenState);
     }
 }

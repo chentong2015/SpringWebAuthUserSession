@@ -1,16 +1,16 @@
-package backend.cookie_session;
+package backend.model.bean;
 
-public class SessionTokenState {
+public class TokenState {
 
     private String access_token;
     private Long expires_in;
 
-    public SessionTokenState() {
+    public TokenState() {
         this.access_token = null;
         this.expires_in = null;
     }
 
-    public SessionTokenState(String access_token, long expires_in) {
+    public TokenState(String access_token, long expires_in) {
         this.access_token = access_token;
         this.expires_in = expires_in;
     }

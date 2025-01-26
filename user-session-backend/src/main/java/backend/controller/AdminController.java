@@ -22,7 +22,7 @@ public class AdminController {
     }
 
     @GetMapping("/user/{userId}")
-    public UserEntity loadUserById(@PathVariable Long userId) {
+    public UserEntity loadUserById(@PathVariable("userId") Long userId) {
         return this.adminService.findUserById(userId);
     }
 

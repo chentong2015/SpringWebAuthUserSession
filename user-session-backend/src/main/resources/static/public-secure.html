@@ -17,11 +17,11 @@
          var logoutUserButton = document.getElementById("LogoutUser");
          logoutUserButton.addEventListener("click", function (e) {
              fetch('http://localhost:8080/api/logout',
-               {
-                  method: 'POST',
-                  credentials: 'include'
-               })
-               .then(response => console.log(response));
+             {
+                method: 'POST',
+                credentials: 'include'
+             })
+             .then(response => console.log(response));
 
              window.location.href="login.html";
          });

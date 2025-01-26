@@ -16,23 +16,28 @@ public class JwtTokenProvider {
     // TODO. 基于用户账号进行签名
     public static String generateJwtToken(String username) {
         return Jwts.builder()
-               .subject(username) // Payload 用户名信息
-               .issuer(ISSUER_NAME)    // Payload 由谁签发
+               .subject(username)   // Payload 用户名信息
+               .issuer(ISSUER_NAME) // Payload 由谁签发
                .issuedAt(TimeHelper.generateCurrentDate()) // Payload 签发时间
                .expiration(TimeHelper.generateExpirationDate()) // Payload 过期时间
                .signWith(SignedKey.getSigningKey()) // Signature 使用key签名
                .compact();
     }
 
-    // TODO. 更新当前过期Token的签发时间和Expiration时间
+    // 刷新Token的过期时间
     public static String refreshJwtToken(String jwtToken) {
-        Date tokenDate = getExpirationFromJwtToken(jwtToken);
-        Date currentDate = TimeHelper.generateCurrentDate();
-        if (tokenDate.compareTo(currentDate) < 0) {
-            return jwtToken;
+        if (canTokenBeRefreshed(jwtToken)) {
+            String username = getUsernameFromJwtToken(jwtToken);
+            return generateJwtToken(username);
         }
-        String username = getUsernameFromJwtToken(jwtToken);
-        return generateJwtToken(username);
+        return jwtToken;
+    }
+
+    // 只有当前时间在Token过期时间之前，才能刷新Token
+    public static boolean canTokenBeRefreshed(String jwtToken) {
+        Date expirationDate = getExpirationFromJwtToken(jwtToken);
+        Date currentDate = TimeHelper.generateCurrentDate();
+        return currentDate.compareTo(expirationDate) < 0;
     }
 
     private static Date getExpirationFromJwtToken(String jwtToken) {
@@ -44,7 +49,7 @@ public class JwtTokenProvider {
                .getExpiration();
     }
 
-    // TODO. 从签名后的Token中获取用户信息(必须使用相同SecretKey)
+    // 从签名后的Token中获取用户信息(必须使用相同SecretKey)
     // Sets the signature verification SecretKey used to verify all encountered JWS signatures.
     public static String getUsernameFromJwtToken(String jwtToken) {
         return Jwts.parser()

@@ -1,7 +1,7 @@
 package backend.auth_handler;
 
 import backend.model.entity.UserEntity;
-import backend.cookie_session.SessionTokenState;
+import backend.model.bean.TokenState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jwt.JwtTokenProvider;
 import backend.cookie_session.CookieManager;
@@ -30,12 +30,13 @@ public class AuthLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
                                         HttpServletResponse response, Authentication authentication) throws IOException {
         clearAuthenticationAttributes(request);
 
+        // 从Authentication中拿到验证成功的UserEntity用户信息
         UserEntity user = (UserEntity) authentication.getPrincipal();
         String jwsToken = JwtTokenProvider.generateJwtToken(user.getUsername());
 
         CookieManager.addTokenToResponse(response, jwsToken);
 
-        SessionTokenState tokenState = new SessionTokenState(jwsToken, 600);
+        TokenState tokenState = new TokenState(jwsToken, 600);
         String jwtResponse = objectMapper.writeValueAsString(tokenState);
         response.setContentType("application/json");
         response.getWriter().write(jwtResponse);

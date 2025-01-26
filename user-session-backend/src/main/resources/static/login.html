@@ -9,11 +9,11 @@
          Username: <input name="username" id="username" type="text"/> <br><br>
          Password: <input name="password" id="password" type="password"/> <br><br>
          <button id="LoginUser">Login Account</button>
-      </div>
-      <br>
+      </div><br>
+
       Please create a new account firstly:
-      <button type="button" onclick="window.location.href='register.html'">Register Account</button>
-      <br><br>
+      <button type="button" onclick="window.location.href='register.html'">Register Account</button><br><br>
+
       Visit Public Page
       <button type="button" onclick="window.location.href='public.html'">Public Space</button>
 
@@ -24,18 +24,18 @@
               const password = document.getElementById("password").value;
 
               fetch('http://localhost:8080/api/login?username=' + username + '&password=' + password,
-                {
-                   method: 'POST',
-                })
-                .then(response => console.log(response))
-                .then(response => console.log(JSON.stringify(response)));
+              {
+                 method: 'POST',
+              })
+              .then(response => console.log(response))
+              .then(response => console.log(JSON.stringify(response)));
 
-              // 根据用户类型跳转到不同页面
-              if (username == 'admin') {
-                  window.location.href="admin.html";
-              } else {
-                  window.location.href="user.html";
-              }
+              // 如果执行跳转，Token无法设置到浏览器Cookie中
+              // if (username == 'admin') {
+              //     window.location.href="admin.html";
+              // } else {
+              //     window.location.href="user.html";
+              // }
           });
       </script>
    </body>

@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-// TODO. 关于用户身份的验证, 验证特定数据来源的UserDetails
+// TODO. 关于用户身份的验证, 验证UserDetails特定数据源
 @Configuration
 public class UserDetailsConfig {
 

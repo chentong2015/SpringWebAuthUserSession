@@ -1,5 +1,6 @@
 package backend.config.filter;
 
+import backend.cookie_session.TokenProcessor;
 import backend.model.InvalidAuthentication;
 import backend.model.BasedTokenAuthentication;
 import backend.model.ValidAuthentication;
@@ -32,7 +33,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        String authToken = fetchToken(request);
+        String authToken = TokenProcessor.fetchToken(request);
         Authentication authentication;
         if (authToken != null) {
             // 从token中解析用户名称，验证token的有效性
@@ -50,14 +51,5 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
-    }
-
-    // 从request请求中解析token数据，token可能来自不同位置
-    private String fetchToken(HttpServletRequest request) {
-        String authToken = CookieManager.getTokenFromAuthHeader(request);
-        if (authToken == null) {
-            authToken = CookieManager.getTokenFromCookieStore(request);
-        }
-        return authToken;
     }
 }

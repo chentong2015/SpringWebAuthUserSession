@@ -10,6 +10,9 @@ public class CookieManager {
     private static final String AUTH_COOKIE_NAME = "AUTH-TOKEN";
     private static final String AUTH_HEADER_NAME = "Authorization";
 
+    private CookieManager() {
+    }
+
     /**
      *  Getting token from Authentication header, e.g Bearer your_token
      */

@@ -5,14 +5,12 @@
    </head>
    <body>
       <h1>Admin Testing Page</h1>
-      User ID: <input name="userId" id="userId" type="text"/>
-      <button type="button" id="GetUser">Get User By Id</button>
-      <br><br>
-      <button type="button" id="GetAllUser">Get All Users</button>
 
-      <br><br>
-      <button type="button" id="RefreshSession">Refresh Session</button>
-      <br><br>
+      User ID: <input name="userId" id="userId" type="text"/>
+      <button type="button" id="GetUser">Get User By Id</button> <br><br>
+      <button type="button" id="GetAllUser">Get All Users</button> <br><br>
+
+      <button type="button" id="RefreshSession">Refresh Session</button> <br><br>
       <button type="button" id="LogoutUser">Log Out</button>
 
       <script>
@@ -20,41 +18,41 @@
          getUserButton.addEventListener("click", function (e) {
              const id = document.getElementById("userId").value;
              fetch('http://localhost:8080/api/user/' + id,
-               {
-                  method: 'GET',
-                  credentials: 'include'
-               })
-               .then(response => console.log(response));
+             {
+                method: 'GET',
+                credentials: 'include'
+             })
+             .then(response => console.log(response));
          });
 
          var getAllUserButton = document.getElementById("GetAllUser");
          getAllUserButton.addEventListener("click", function (e) {
              fetch('http://localhost:8080/api/user/all',
-               {
-                  method: 'GET',
-                  credentials: 'include'
-               })
-               .then(response => console.log(response));
+             {
+                method: 'GET',
+                credentials: 'include'
+             })
+             .then(response => console.log(response));
          });
 
          var refreshSessionButton = document.getElementById("RefreshSession");
          refreshSessionButton.addEventListener("click", function (e) {
              fetch('http://localhost:8080/api/session/refresh',
-               {
-                  method: 'GET',
-                  credentials: 'include'
-               })
-               .then(response => console.log(response))
+             {
+                method: 'GET',
+                credentials: 'include'
+             })
+             .then(response => console.log(response))
          });
 
          var logoutUserButton = document.getElementById("LogoutUser");
          logoutUserButton.addEventListener("click", function (e) {
              fetch('http://localhost:8080/api/logout',
-               {
-                  method: 'POST',
-                  credentials: 'include'
-               })
-               .then(response => console.log(response));
+             {
+                method: 'POST',
+                credentials: 'include'
+             })
+             .then(response => console.log(response));
 
              window.location.href="login.html";
          });

@@ -12,9 +12,8 @@
          Fist Name: <input name="firstname" id="firstname" type="text"/> <br><br>
          Last Name: <input name="lastname" id="lastname" type="text"/> <br><br>
       </div>
-      <button id="RegisterUser">Register Account</button>
-      
-      <br><br>
+      <button id="RegisterUser">Register Account</button><br><br>
+
       <button type="button" onclick="window.location.href='login.html'">Back To Login</button>
 
       <script>
@@ -27,24 +26,23 @@
              const lastname = document.getElementById("lastname").value;
 
              fetch('http://localhost:8080/api/register', {
-                  method: 'POST',
-                  headers: {
-                     'Content-Type': 'application/json; charset=utf-8'
-                  },
-                  body: JSON.stringify({
-                     "id": id,
-                     "username": username,
-                     "password": password,
-                     "firstname": firstname,
-                     "lastname": lastname
-                  })
-               })
-               .then(response => response.json())
-               .then(response => console.log(response));
+                method: 'POST',
+                headers: {
+                   'Content-Type': 'application/json; charset=utf-8'
+                },
+                body: JSON.stringify({
+                   "id": id,
+                   "username": username,
+                   "password": password,
+                   "firstname": firstname,
+                   "lastname": lastname
+                })
+             })
+             .then(response => response.json())
+             .then(response => console.log(response));
 
-             window.location.href="user.html";
+             window.location.href="login.html";
         });
       </script>
-
    </body>
 </html>

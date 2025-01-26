@@ -40,6 +40,7 @@ public class UserController {
     @PostMapping("/changePassword")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
         this.userService.changePassword(passwordChanger);
+
         Map<String, String> result = new HashMap<>();
         result.put("result", "success");
         return ResponseEntity.accepted().body(result);
@@ -52,7 +53,7 @@ public class UserController {
     }
 
     @GetMapping("/showme/{username}")
-    public UserEntity showMe(@PathVariable String username) {
+    public UserEntity showMe(@PathVariable("username") String username) {
         return this.userService.findUserByUsername(username);
     }
 }
