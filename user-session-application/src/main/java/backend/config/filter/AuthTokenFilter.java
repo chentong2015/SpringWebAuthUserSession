@@ -11,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jwt.JwtTokenProvider;
 import backend.model.entity.UserEntity;
 import backend.repository.UserRepository;
-import backend.cookie_session.CookieManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,8 +30,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     }
 
     @Override
-    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+    public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String authToken = TokenProcessor.fetchToken(request);
         Authentication authentication;
         if (authToken != null) {

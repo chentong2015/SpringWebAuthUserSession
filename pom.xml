@@ -11,7 +11,7 @@
 
     <modules>
         <module>jwt-token</module>
-        <module>user-session-backend</module>
+        <module>user-session-application</module>
     </modules>
 
     <properties>
