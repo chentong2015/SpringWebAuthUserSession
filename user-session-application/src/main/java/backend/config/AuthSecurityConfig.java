@@ -1,9 +1,9 @@
 package backend.config;
 
-import backend.auth_handler.AuthEntryPointHandler;
-import backend.auth_handler.AuthLoginFailureHandler;
-import backend.auth_handler.AuthLoginSuccessHandler;
-import backend.auth_handler.MyLogoutSuccessHandler;
+import backend.config.handler.AuthEntryPointHandler;
+import backend.config.handler.AuthLoginFailureHandler;
+import backend.config.handler.AuthLoginSuccessHandler;
+import backend.config.handler.MyLogoutSuccessHandler;
 import backend.config.filter.AuthTokenFilter;
 import backend.cookie_session.CookieManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class UserRequestConfig {
+public class AuthSecurityConfig {
 
     @Autowired
     private AuthTokenFilter authenticationTokenFilter;
@@ -43,7 +43,7 @@ public class UserRequestConfig {
         httpSecurity.cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
 
                 // 授权异常的处理器(处理401 Unauthorized请求)
                 .exceptionHandling(exceptionHandler ->

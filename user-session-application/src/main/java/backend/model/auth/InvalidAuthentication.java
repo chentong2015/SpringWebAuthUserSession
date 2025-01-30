@@ -1,4 +1,4 @@
-package backend.model;
+package backend.model.auth;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 

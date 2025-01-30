@@ -15,7 +15,7 @@ public class DatasourceConfig {
     // TODO. SQLite DataSource: 使用本地嵌入式数据库来持久化UserDetails用户信息
     @Bean
     public DataSource dataSource() throws IOException {
-        String dbFilePath = "user-session-backend/database/session.db";
+        String dbFilePath = "user-session-application/database/session.db";
         Path dbPath = FileSystems.getDefault().getPath(dbFilePath);
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();

@@ -1,9 +1,9 @@
 package backend.config.filter;
 
-import backend.cookie_session.TokenProcessor;
-import backend.model.InvalidAuthentication;
-import backend.model.BasedTokenAuthentication;
-import backend.model.ValidAuthentication;
+import backend.cookie_session.CookieManager;
+import backend.model.auth.InvalidAuthentication;
+import backend.model.auth.BasedTokenAuthentication;
+import backend.model.auth.ValidAuthentication;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-// TODO. 用户请求一个需要认证的Endpoint, 并且提供了Credentials
+// TODO. OncePerRequestFilter 关于API请求的单次过滤器
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
 
@@ -31,10 +31,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String authToken = TokenProcessor.fetchToken(request);
+        String authToken = CookieManager.fetchToken(request);
+
+        // 从token中解析用户名称，验证token的有效性
         Authentication authentication;
         if (authToken != null) {
-            // 从token中解析用户名称，验证token的有效性
             String username = JwtTokenProvider.getUsernameFromJwtToken(authToken);
             UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
             if (userEntity == null) {

@@ -87,7 +87,8 @@ public class UserEntity implements UserDetails, Serializable {
         this.authorities = authorities;
     }
 
-    // We can add the below fields in the users table.
+    // TODO. 以下参数用于确定UserDetails账号的有效性
+    //  阻塞或者过期用户, 避免用户密码被暴力破解
     @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {

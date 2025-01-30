@@ -14,9 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SessionController {
 
+    // 必须完成用户认证后才能访问, 用户自定义选择Cookie信息的设置
+    @GetMapping("/cookies/accept")
+    public ResponseEntity<?> acceptAllCookies(HttpServletResponse response) {
+        CookieManager.addExtraCookiesToResponse(response);
+        return ResponseEntity.ok().body("Accept All Cookies Saved !");
+    }
+
     @GetMapping("/session/refresh")
     public ResponseEntity<?> refreshAuthenticationToken(HttpServletRequest request, HttpServletResponse response) {
-        String authToken = TokenProcessor.fetchToken(request);
+        String authToken = CookieManager.fetchToken(request);
         if (authToken == null) {
             TokenState tokenState = new TokenState();
             return ResponseEntity.accepted().body(tokenState);

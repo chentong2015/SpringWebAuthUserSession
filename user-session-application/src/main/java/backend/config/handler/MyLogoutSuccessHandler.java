@@ -1,4 +1,4 @@
-package backend.auth_handler;
+package backend.config.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
