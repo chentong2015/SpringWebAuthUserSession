@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,18 @@ public class UserController {
         this.userService = userService;
     }
 
-    // 当抛出异常时返回Exception ResponseEntity
+    // 注册时根据用户提供的Email发送验证码(包含有效期)
+    @PostMapping("/registration/code")
+    public ResponseEntity<?> getRegistrationCode(@RequestParam(name = "email") String email) {
+        SecureRandom random = new SecureRandom();
+        int code = random.nextInt(1000, 10000);
+        System.out.println("Send code { " + code + " } to email: " + email);
+
+        return ResponseEntity.ok().body("Code has been send to your email");
+    }
+
+    // 注册用户持久化到UserDetailsService的存储数据库
+    // 请求的UserRequest中应该包含注册的验证码，否则无法完成注册
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRequest userRequest) {
         UserEntity existUser = this.userService.findUserByUsername(userRequest.getUsername());

@@ -56,6 +56,7 @@ public class AuthSecurityConfig {
                 .authorizeHttpRequests((requests) -> {
                     requests.requestMatchers("/api/public").permitAll();
                     requests.requestMatchers("/api/register").permitAll();
+                    requests.requestMatchers("/api/registration/code").permitAll();
                     requests.anyRequest().authenticated();
                 })
 
