@@ -6,13 +6,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-// TODO. UserDetails存储以来源的实现
+import java.util.Optional;
+
+// TODO. UserDetailsService 提供UserDetails的来源
 // 用于获取UserDetails并提供给AuthenticationManager进行验证
-//
-// TODO. UserDetailsService的三种实现
-// - PersistenceUserDetailsService 从持久化的DB中获取UserDetails
-// - CachingUserDetailsService 从Cache缓存中获取UserDetails
-// - InMemoryUserDetailsManager 从Memory内存中获取UserDetails
+// - PersistenceUserDetailsService 从持久化DB中获取UserDetails
+// - CachingUserDetailsService     从Cache缓存获取UserDetails
+// - InMemoryUserDetailsManager    从Memory内存获取UserDetails
 @Service
 public class DBUserDetailsService implements UserDetailsService {
 
@@ -26,8 +26,12 @@ public class DBUserDetailsService implements UserDetailsService {
     // select id,firstname,lastname,password,username from t_user where username=?
     @Override
     public UserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
-        String msg = String.format("No user found with username '%s'.", username);
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(msg));
+        Optional<UserEntity> userEntity = userRepository.findByUsername(username);
+        if (userEntity.isEmpty()) {
+            String msg = String.format("No user found with username '%s'.", username);
+            throw new UsernameNotFoundException(msg);
+        }
+        return userEntity.get();
     }
 
     public void save(UserEntity user) {

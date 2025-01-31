@@ -4,7 +4,7 @@ import backend.model.entity.UserEntity;
 import backend.model.bean.TokenState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jwt.JwtTokenProvider;
-import backend.cookie_session.CookieManager;
+import backend.cookie_session.TokenHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -34,7 +34,7 @@ public class AuthLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
         String jwsToken = JwtTokenProvider.generateJwtToken(user.getUsername());
 
         // 将生成的Session Token设置到Response
-        CookieManager.addTokenToResponse(response, jwsToken);
+        TokenHelper.addTokenToResponse(response, jwsToken);
 
         TokenState tokenState = new TokenState(jwsToken, 600);
         String jwtResponse = objectMapper.writeValueAsString(tokenState);

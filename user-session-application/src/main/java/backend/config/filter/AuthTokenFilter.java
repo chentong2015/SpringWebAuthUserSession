@@ -1,6 +1,6 @@
 package backend.config.filter;
 
-import backend.cookie_session.CookieManager;
+import backend.cookie_session.TokenHelper;
 import backend.model.auth.InvalidAuthentication;
 import backend.model.auth.BasedTokenAuthentication;
 import backend.model.auth.ValidAuthentication;
@@ -31,7 +31,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String authToken = CookieManager.fetchToken(request);
+        String authToken = TokenHelper.fetchToken(request);
 
         // 从token中解析用户名称，验证token的有效性
         Authentication authentication;

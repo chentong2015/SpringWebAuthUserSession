@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 // TODO. 关于用户身份的验证, 验证UserDetails特定数据源
 @Configuration
-public class UserDetailsConfig {
+public class AuthUserConfig {
 
     @Autowired
     private DBUserDetailsService dbUserDetailsService;

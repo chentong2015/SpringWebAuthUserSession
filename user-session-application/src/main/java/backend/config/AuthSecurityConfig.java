@@ -5,7 +5,7 @@ import backend.config.handler.AuthLoginFailureHandler;
 import backend.config.handler.AuthLoginSuccessHandler;
 import backend.config.handler.MyLogoutSuccessHandler;
 import backend.config.filter.AuthTokenFilter;
-import backend.cookie_session.CookieManager;
+import backend.cookie_session.TokenHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,8 +42,10 @@ public class AuthSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
+
+                // Client must send its credentials every time when tries to access a protected resource
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS))
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 // 授权异常的处理器(处理401 Unauthorized请求)
                 .exceptionHandling(exceptionHandler ->
@@ -72,7 +74,7 @@ public class AuthSecurityConfig {
                      logout.logoutRequestMatcher(new AntPathRequestMatcher("/api/logout")).permitAll();
                      logout.logoutSuccessHandler(myLogoutSuccessHandler);
                      logout.invalidateHttpSession(true);
-                     logout.deleteCookies(CookieManager.getAuthCookieName());
+                     logout.deleteCookies(TokenHelper.getAuthCookieName());
                      logout.deleteCookies("JSESSIONID");
                 });
         return httpSecurity.build();

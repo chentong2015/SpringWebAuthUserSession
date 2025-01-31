@@ -23,14 +23,14 @@ public class SessionController {
 
     @GetMapping("/session/refresh")
     public ResponseEntity<?> refreshAuthenticationToken(HttpServletRequest request, HttpServletResponse response) {
-        String authToken = CookieManager.fetchToken(request);
+        String authToken = TokenHelper.fetchToken(request);
         if (authToken == null) {
             TokenState tokenState = new TokenState();
             return ResponseEntity.accepted().body(tokenState);
         }
 
         String refreshedToken = JwtTokenProvider.refreshJwtToken(authToken);
-        CookieManager.addTokenToResponse(response, refreshedToken);
+        TokenHelper.addTokenToResponse(response, refreshedToken);
 
         TokenState tokenState = new TokenState(refreshedToken, 600);
         return ResponseEntity.ok().body(tokenState);
