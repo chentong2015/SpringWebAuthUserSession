@@ -5,6 +5,7 @@ import backend.model.bean.TokenState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jwt.JwtTokenProvider;
 import backend.cookie_session.TokenHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -18,11 +19,8 @@ import java.io.IOException;
 @Component
 public class AuthLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private final ObjectMapper objectMapper;
-
-    public AuthLoginSuccessHandler(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+    @Autowired
+    private ObjectMapper objectMapper;
 
     // TODO. 处理认证成功的UserEntity，创建Session并设置到Response中
     @Override

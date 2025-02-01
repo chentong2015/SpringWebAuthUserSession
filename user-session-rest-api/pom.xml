@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>user-session-application</artifactId>
+    <artifactId>user-session-rest-api</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

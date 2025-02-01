@@ -3,6 +3,7 @@ package backend.config.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -14,11 +15,8 @@ import java.util.Map;
 @Component
 public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
 
-    private final ObjectMapper objectMapper;
-
-    public MyLogoutSuccessHandler(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest,
