@@ -4,7 +4,7 @@ import backend.config.handler.AuthEntryPointHandler;
 import backend.config.handler.AuthLoginFailureHandler;
 import backend.config.handler.AuthLoginSuccessHandler;
 import backend.config.handler.MyLogoutSuccessHandler;
-import backend.config.filter.AuthTokenFilter;
+import backend.config.filter.AuthRequestFilter;
 import backend.cookie_session.TokenHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +16,6 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -24,7 +23,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class AuthSecurityConfig {
 
     @Autowired
-    private AuthTokenFilter authenticationTokenFilter;
+    private AuthRequestFilter authenticationTokenFilter;
 
     @Autowired
     private AuthEntryPointHandler authEntryPointHandler;

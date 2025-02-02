@@ -21,11 +21,11 @@ import java.io.IOException;
 
 // TODO. OncePerRequestFilter 关于API请求的单次过滤器
 @Component
-public class AuthTokenFilter extends OncePerRequestFilter {
+public class AuthRequestFilter extends OncePerRequestFilter {
 
     private final UserRepository userRepository;
 
-    public AuthTokenFilter(UserRepository userRepository) {
+    public AuthRequestFilter(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
