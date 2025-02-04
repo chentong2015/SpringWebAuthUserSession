@@ -15,8 +15,9 @@ import java.util.Map;
 @RequestMapping("${api.endpoint.base-url}/users")
 public class UserController {
 
-    private final PasswordEncoder passwordEncoder;
+    // TODO: 使用Spring Security提供的InMemoryUserService
     private final InMemoryUserDetailsManager inMemoryUserDetails;
+    private final PasswordEncoder passwordEncoder;
 
     public UserController(InMemoryUserDetailsManager inMemoryUserDetails, PasswordEncoder passwordEncoder) {
         this.inMemoryUserDetails = inMemoryUserDetails;
@@ -51,6 +52,7 @@ public class UserController {
         String oldPassword = passwordMap.get("oldPassword");
         String newPassword = passwordMap.get("newPassword");
         String confirmNewPassword = passwordMap.get("confirmNewPassword");
+
         this.inMemoryUserDetails.changePassword(oldPassword, newPassword);
         return new Response(StatusCode.SUCCESS, "Change Password Success", null);
     }

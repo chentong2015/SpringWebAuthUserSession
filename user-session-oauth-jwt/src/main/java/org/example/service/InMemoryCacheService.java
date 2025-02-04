@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class InMemoryCacheService {
 
-    private ConcurrentHashMap<String, String> cacheUserToken;
+    private final ConcurrentHashMap<String, String> cacheUserToken;
 
     public InMemoryCacheService() {
         this.cacheUserToken = new ConcurrentHashMap<>();
