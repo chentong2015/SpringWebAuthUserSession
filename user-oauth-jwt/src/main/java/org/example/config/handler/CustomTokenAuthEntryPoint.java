@@ -11,6 +11,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
 
+// TODO. Authentication失败，每天提供认证信息或Token无效
 @Component
 public class CustomTokenAuthEntryPoint implements AuthenticationEntryPoint {
 

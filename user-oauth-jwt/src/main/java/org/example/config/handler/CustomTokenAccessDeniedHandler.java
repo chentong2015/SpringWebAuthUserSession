@@ -11,6 +11,8 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
 
+// TODO. 访问被阻止，说明Authority用户授权出现问题
+// The request requires higher privileges than provided by the access token.
 @Component
 public class CustomTokenAccessDeniedHandler implements AccessDeniedHandler {
 

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,10 +59,11 @@ public class UserController {
         return ResponseEntity.accepted().body(result);
     }
 
-    // 确保具有"ROLE_USER", 从ContextHolder中获取认证过的UserDetails
+    // 从SecurityContext中获取经过验证的UserDetails
     @GetMapping("/whoami")
     public UserEntity user() {
-        return (UserEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (UserEntity) authentication.getPrincipal();
     }
 
     @GetMapping("/showme/{username}")

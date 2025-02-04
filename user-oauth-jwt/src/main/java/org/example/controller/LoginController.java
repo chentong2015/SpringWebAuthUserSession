@@ -32,6 +32,19 @@ public class LoginController {
         this.inMemoryUserDetails = inMemoryCacheService;
     }
 
+    // TODO. 验证和操作流程: 只有authentication成功，请求才被发送到该Endpoint
+    // 1. BasicAuthenticationFilter processing any request that has an HTTP request header of Authorization
+    //    with an authentication scheme of Basic and a Base64-encoded username:password token.
+    // 2. BasicAuthenticationFilter prepare the Authentication object for this login method.
+    @PostMapping("/login")
+    public Response login(Authentication authentication) {
+        System.out.println("Authenticated user: " + authentication.getName());
+        Map<String, Object> loginInfo = this.authService.createLoginInfo(authentication);
+
+        String message = "User Info and JSON Web Token";
+        return new Response(StatusCode.SUCCESS, message, loginInfo);
+    }
+
     // TODO. 暴露用户注册的Endpoint API接口, 支持动态注册新用户
     @PostMapping("/register")
     public Response registerUser(@RequestBody CustomUser customUser) {
@@ -42,22 +55,5 @@ public class LoginController {
                 .build();
         this.inMemoryUserDetails.createUser(newUser);
         return new Response(StatusCode.SUCCESS, "Add Success", newUser);
-    }
-
-    // TODO. 验证和操作流程: 只有authentication成功，请求发送到该Endpoint
-    // 1. BasicAuthenticationFilter
-    //    processing any request that has an HTTP request header of Authorization
-    //    with an authentication scheme of Basic and a Base64-encoded username:password token.
-    // 2. BasicAuthenticationFilter
-    //    prepare the Authentication object for this login method.
-    // 3. Spring Security authenticated the username and password through Basic Auth.
-    //    before this login method gets called
-    @PostMapping("/login")
-    public Response login(Authentication authentication) {
-        System.out.println("Authenticated user: " + authentication.getName());
-        Map<String, Object> loginInfo = this.authService.createLoginInfo(authentication);
-
-        String message = "User Info and JSON Web Token";
-        return new Response(StatusCode.SUCCESS, message, loginInfo);
     }
 }

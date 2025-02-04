@@ -19,12 +19,11 @@ public class JwtInterceptor implements HandlerInterceptor {
         this.cacheService = cacheService;
     }
 
-    // Check Authorization header and compare token with the date in Cache
+    // TODO. 验证请求的Username和提供的Token是否在缓存中生成过
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String authorizationHeader = request.getHeader("Authorization");
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Jwt jwt = (Jwt) authentication.getPrincipal();
             String token = jwt.getTokenValue();

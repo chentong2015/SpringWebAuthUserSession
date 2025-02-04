@@ -13,12 +13,12 @@ import java.io.IOException;
 
 // TODO. This class handles unsuccessful basic authentication.
 @Component
-public class CustomBasicAuthEntryPoint implements AuthenticationEntryPoint {
+public class CustomHttpBasicAuthEntryPoint implements AuthenticationEntryPoint {
 
     private final HandlerExceptionResolver resolver;
 
     // Inject DefaultHandlerExceptionResolver and delegated the handler to this.resolver
-    public CustomBasicAuthEntryPoint(@Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
+    public CustomHttpBasicAuthEntryPoint(@Qualifier("handlerExceptionResolver") HandlerExceptionResolver resolver) {
         this.resolver = resolver;
     }
 
