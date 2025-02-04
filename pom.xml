@@ -11,8 +11,8 @@
 
     <modules>
         <module>jwt-token</module>
+        <module>user-oauth-jwt</module>
         <module>user-session-rest-api</module>
-        <module>user-session-oauth-jwt</module>
     </modules>
 
     <properties>

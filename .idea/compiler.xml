@@ -8,7 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="jwt-token" />
         <module name="user-session-rest-api" />
-        <module name="user-session-oauth-jwt" />
+        <module name="user-oauth-jwt" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

@@ -1,6 +1,0 @@
-key\SignedKeyLocator.class
-jwt\JwtTokenProvider.class
-jwt\TimeHelper.class
-JsonWebToken.class
-jwt\JwtTokenValidator.class
-key\SignedKey.class
