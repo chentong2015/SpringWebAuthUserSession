@@ -37,7 +37,7 @@ public class OAuthSecurityConfig {
         this.privateKey = (RSAPrivateKey) keyPair.getPrivate();
     }
 
-    // TODO. 从JWT Token中特定Claims名称解析到Authentication.authorities属性
+    // TODO. 定义从JWT特定Claims名称解析到Authentication.authorities属性
     // 当"authorities"名称不同时，Spring Security不知道如何解析
     // JwtClaimsSet claims = JwtClaimsSet.builder()
     //   .subject(authentication.getName())
@@ -50,7 +50,7 @@ public class OAuthSecurityConfig {
         grantedAuthoritiesConverter.setAuthoritiesClaimName("authorities");
         grantedAuthoritiesConverter.setAuthorityPrefix("");
 
-        final JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
     }

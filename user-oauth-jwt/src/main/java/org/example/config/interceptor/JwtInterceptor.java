@@ -22,11 +22,18 @@ public class JwtInterceptor implements HandlerInterceptor {
     // TODO. 验证请求的Username和提供的Token是否在缓存中生成过
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String authorizationHeader = request.getHeader("Authorization");
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+        String header = request.getHeader("Authorization");
+        if (header != null && header.startsWith("Bearer ")) {
+            String tokenRequest = header.substring(7);
+
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Jwt jwt = (Jwt) authentication.getPrincipal();
+
             String token = jwt.getTokenValue();
+            if (!tokenRequest.equals(token)) {
+                throw new BadCredentialsException("Request Token is not the same");
+            }
+
             String username = jwt.getClaim("username").toString();
             if (!this.cacheService.existToken(username, token)) {
                 throw new BadCredentialsException("Invalid token");

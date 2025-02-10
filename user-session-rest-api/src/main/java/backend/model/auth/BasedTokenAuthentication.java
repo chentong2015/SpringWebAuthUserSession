@@ -14,10 +14,6 @@ public class BasedTokenAuthentication extends AbstractAuthenticationToken {
         this.token = token;
     }
 
-    public String getToken() {
-        return token;
-    }
-
     // TODO. 说明基于Token的用户认证成功
     @Override
     public boolean isAuthenticated() {

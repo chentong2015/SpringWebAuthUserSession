@@ -19,9 +19,11 @@ import java.util.function.Supplier;
 @Component
 public class UserRequestAuthManager implements AuthorizationManager<RequestAuthorizationContext> {
 
+    // TODO. 从请求传递的JWT解析到Authentication.authorities属性值
+    // - 从Authentication中获取Jwt object, 用于验证名称
+    // - 从Authentication中直接获取GrantedAuthority, 用于验证角色
     @Override
     public AuthorizationDecision check(Supplier<Authentication> authenticationSupplier, RequestAuthorizationContext context) {
-        // 从Authentication中获取Jwt object, 并验证用于名称和Role
         Authentication authentication = authenticationSupplier.get();
         Jwt jwtObject = (Jwt) authentication.getPrincipal();
 
@@ -29,9 +31,7 @@ public class UserRequestAuthManager implements AuthorizationManager<RequestAutho
         String usernameUrl = UrlPathParser.parseUsername(context);
         boolean userIdsMatch = usernameUrl != null && usernameUrl.equals(usernameJwt);
 
-        // 从Authentication中直接获取GrantedAuthority
         Collection<? extends GrantedAuthority> grantedAuthorities = authentication.getAuthorities();
-
         // 解析用户的多个Role角色
         String[] authorities = jwtObject.getClaim("authorities").toString().split(" ");
         boolean hasAdminRole = Arrays.asList(authorities).contains("ROLE_ADMIN");

@@ -59,7 +59,8 @@ public class UserController {
         return ResponseEntity.accepted().body(result);
     }
 
-    // 从SecurityContext中获取经过验证的UserDetails
+    // TODO. 从SecurityContextHolder获取有效授权的对象
+    // 如果是Token被验证成功，获取的对象为自定义的BasedTokenAuthentication对象
     @GetMapping("/whoami")
     public UserEntity user() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

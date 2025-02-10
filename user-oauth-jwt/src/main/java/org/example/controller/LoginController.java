@@ -3,10 +3,8 @@ package org.example.controller;
 import org.example.model.CustomUser;
 import org.example.model.Response;
 import org.example.model.StatusCode;
-import org.example.service.InMemoryCacheService;
 import org.example.service.LoginService;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,10 +30,11 @@ public class LoginController {
         this.inMemoryUserDetails = inMemoryCacheService;
     }
 
-    // TODO. 验证和操作流程: 只有authentication成功，请求才被发送到该Endpoint
+    // TODO. Login用户验证流程: 只有authentication成功，请求才被发送到该Endpoint
     // 1. BasicAuthenticationFilter processing any request that has an HTTP request header of Authorization
     //    with an authentication scheme of Basic and a Base64-encoded username:password token.
-    // 2. BasicAuthenticationFilter prepare the Authentication object for this login method.
+    // 2. Valid the user details
+    // 3. BasicAuthenticationFilter prepare the Authentication object for this login method.
     @PostMapping("/login")
     public Response login(Authentication authentication) {
         System.out.println("Authenticated user: " + authentication.getName());

@@ -32,10 +32,9 @@ public class AuthRequestFilter extends OncePerRequestFilter {
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String authToken = TokenHelper.fetchToken(request);
-
-        // 从token中解析用户名称，验证token的有效性
         Authentication authentication;
         if (authToken != null) {
+            // 从token中解析用户名称，验证token的有效性
             String username = JwtTokenProvider.getUsernameFromJwtToken(authToken);
             UserEntity userEntity = this.userRepository.findByUsername(username).orElse(null);
             if (userEntity == null) {
