@@ -1,9 +1,9 @@
 package backend.config.filter;
 
 import backend.cookie_session.TokenHelper;
-import backend.model.auth.InvalidAuthentication;
+import backend.model.auth.InvalidAuthenticationToken;
 import backend.model.auth.BasedTokenAuthentication;
-import backend.model.auth.ValidAuthentication;
+import backend.model.auth.ValidAuthenticationToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,11 +21,11 @@ import java.io.IOException;
 
 // TODO. OncePerRequestFilter 关于API请求的单次过滤器
 @Component
-public class AuthRequestFilter extends OncePerRequestFilter {
+public class TokenRequestFilter extends OncePerRequestFilter {
 
     private final UserRepository userRepository;
 
-    public AuthRequestFilter(UserRepository userRepository) {
+    public TokenRequestFilter(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -42,9 +42,11 @@ public class AuthRequestFilter extends OncePerRequestFilter {
             }
             authentication = new BasedTokenAuthentication(userEntity, authToken);
         } else if (WebPageFilter.isValidPath(request)) {
-            authentication = new ValidAuthentication();
+            // 返回一个能够被认证成功的AuthenticationToken对象
+            // 允许用户访问特定路径的URL
+            authentication = new ValidAuthenticationToken();
         } else {
-            authentication = new InvalidAuthentication();
+            authentication = new InvalidAuthenticationToken();
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);

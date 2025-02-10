@@ -2,9 +2,9 @@ package backend.model.auth;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
-public class ValidAuthentication extends AbstractAuthenticationToken {
+public class ValidAuthenticationToken extends AbstractAuthenticationToken {
 
-    public ValidAuthentication() {
+    public ValidAuthenticationToken() {
         super(null);
     }
 

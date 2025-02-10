@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.config.auth.JwtGenerator;
+import org.example.util.JwtGenerator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.Jwt;

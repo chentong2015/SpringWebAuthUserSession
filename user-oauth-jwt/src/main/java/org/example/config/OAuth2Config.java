@@ -22,12 +22,12 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
 @Configuration
-public class OAuthSecurityConfig {
+public class OAuth2Config {
 
     private final RSAPublicKey publicKey;
     private final RSAPrivateKey privateKey;
 
-    public OAuthSecurityConfig() throws NoSuchAlgorithmException {
+    public OAuth2Config() throws NoSuchAlgorithmException {
         // Generate a public/private key pair.
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
         keyPairGenerator.initialize(2048);

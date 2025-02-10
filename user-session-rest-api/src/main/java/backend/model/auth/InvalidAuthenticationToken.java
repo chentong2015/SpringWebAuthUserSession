@@ -2,9 +2,9 @@ package backend.model.auth;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 
-public class InvalidAuthentication extends AbstractAuthenticationToken {
+public class InvalidAuthenticationToken extends AbstractAuthenticationToken {
 
-    public InvalidAuthentication() {
+    public InvalidAuthenticationToken() {
         super(null);
     }
 
