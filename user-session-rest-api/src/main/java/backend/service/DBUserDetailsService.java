@@ -8,11 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-// TODO. UserDetailsService 提供UserDetails的来源
-// 用于获取UserDetails并提供给AuthenticationManager进行验证
-// - PersistenceUserDetailsService 从持久化DB中获取UserDetails
-// - CachingUserDetailsService     从Cache缓存获取UserDetails
-// - InMemoryUserDetailsManager    从Memory内存获取UserDetails
 @Service
 public class DBUserDetailsService implements UserDetailsService {
 
