@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="jwt-token" />
+        <module name="user-session-remember-me" />
         <module name="user-session-rest-api" />
+        <module name="jwt-token" />
         <module name="user-oauth-jwt" />
       </profile>
     </annotationProcessing>

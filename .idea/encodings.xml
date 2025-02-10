@@ -10,6 +10,8 @@
     <file url="file://$PROJECT_DIR$/user-oauth-jwt/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user-session-client/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user-session-client/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user-session-remember-me/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/user-session-remember-me/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user-session-rest-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/user-session-rest-api/src/main/resources" charset="UTF-8" />
   </component>
