@@ -5,7 +5,7 @@ import backend.config.handler.AuthLoginFailureHandler;
 import backend.config.handler.AuthLoginSuccessHandler;
 import backend.config.handler.MyLogoutSuccessHandler;
 import backend.config.filter.TokenRequestFilter;
-import backend.cookie_session.TokenHelper;
+import backend.session.TokenHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

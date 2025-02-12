@@ -1,4 +1,4 @@
-package backend.cookie_session;
+package backend.session;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

@@ -4,7 +4,7 @@ import backend.model.entity.UserEntity;
 import backend.model.bean.TokenState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jwt.JwtTokenProvider;
-import backend.cookie_session.TokenHelper;
+import backend.session.TokenHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;

@@ -1,9 +1,9 @@
 package backend.config.filter;
 
-import backend.cookie_session.TokenHelper;
-import backend.model.auth.InvalidAuthenticationToken;
-import backend.model.auth.BasedTokenAuthentication;
-import backend.model.auth.ValidAuthenticationToken;
+import backend.session.TokenHelper;
+import backend.session.token.InvalidAuthenticationToken;
+import backend.session.token.BasedTokenAuthentication;
+import backend.session.token.ValidAuthenticationToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
