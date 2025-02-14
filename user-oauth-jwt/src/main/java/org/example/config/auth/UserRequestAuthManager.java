@@ -14,8 +14,6 @@ import java.util.Collection;
 import java.util.function.Supplier;
 
 // TODO. 在Auth成功后为URL添加特定权限控制
-// - 用户必须访问它自己的Url链接
-// - 用户必须满足特定Role角色, 否则403 Forbidden
 @Component
 public class UserRequestAuthManager implements AuthorizationManager<RequestAuthorizationContext> {
 
@@ -27,10 +25,12 @@ public class UserRequestAuthManager implements AuthorizationManager<RequestAutho
         Authentication authentication = authenticationSupplier.get();
         Jwt jwtObject = (Jwt) authentication.getPrincipal();
 
+        // 用户必须访问它的Url链接, 无法访问其它资源
         String usernameJwt = jwtObject.getClaim("username").toString();
         String usernameUrl = UrlPathParser.parseUsername(context);
         boolean userIdsMatch = usernameUrl != null && usernameUrl.equals(usernameJwt);
 
+        // 用户必须满足特定Role角色, 否则403 Forbidden
         Collection<? extends GrantedAuthority> grantedAuthorities = authentication.getAuthorities();
         // 解析用户的多个Role角色
         String[] authorities = jwtObject.getClaim("authorities").toString().split(" ");

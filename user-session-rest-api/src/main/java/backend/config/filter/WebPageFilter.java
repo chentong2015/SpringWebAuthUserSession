@@ -9,8 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// 过滤特殊的路径的请求
-// The below paths will get ignored by the filter
+// 过滤特殊的路径的请求, 保证静态页面的请求不受Auth影响
 public class WebPageFilter {
 
     public static final String FAVICON_MATCHER = "/favicon.ico";
@@ -19,6 +18,7 @@ public class WebPageFilter {
     public static final String JS_MATCHER = "/**/*.js";
     public static final String IMG_MATCHER = "/images/*";
 
+    // The below paths will get ignored by the filter
     private final List<String> pathsToSkip = Arrays.asList(
             HTML_MATCHER,
             FAVICON_MATCHER,
