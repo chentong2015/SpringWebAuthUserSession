@@ -1,3 +1,5 @@
+https://github.com/jwtk/jjwt
+
 TODO. JWT Token验证流程
 1. 用户使用用户名密码来请求服务器
 2. 服务器进行验证用户的信息
@@ -16,4 +18,7 @@ TODO. JWT Token持久化
 2. Session Token采用后端签发，前端存储的解决方案
 3. Token单节点服务可存放在Session中，集群服务可存放在集群缓存中
 
-https://github.com/jwtk/jjwt
+TODO. JWT Token Base64 decode 解码
+通过www.base64decode.org可以将token解码
+查看token中包含的相关属性和特征信息UseCase
+eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJjaGVuIiwiaXNzIjoiVE9LRU4gUHJvdmlkZXIiLCJpYXQiOjE3MzE5MjI1OTQsImV4cCI6MTczMTkyMjg5NH0.IuEbKJz7GWFpGRCPiyeDOK-k5Zp1if7me9sYw6H463cwMkiRfsR0udhmz2h5zJbY

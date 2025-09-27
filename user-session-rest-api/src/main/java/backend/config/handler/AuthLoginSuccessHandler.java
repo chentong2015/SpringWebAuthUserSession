@@ -1,7 +1,7 @@
 package backend.config.handler;
 
-import backend.model.entity.UserEntity;
-import backend.model.bean.TokenState;
+import backend.entity.UserEntity;
+import backend.session.TokenState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jwt.JwtTokenProvider;
 import backend.session.TokenHelper;

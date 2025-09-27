@@ -1,14 +1,14 @@
-package backend.model.bean;
+package backend.model;
 
-public class PasswordChanger {
+public class PasswordChangeRequest {
 
     private String oldPassword;
     private String newPassword;
 
-    public PasswordChanger() {
+    public PasswordChangeRequest() {
     }
 
-    public PasswordChanger(String oldPassword, String newPassword) {
+    public PasswordChangeRequest(String oldPassword, String newPassword) {
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
     }

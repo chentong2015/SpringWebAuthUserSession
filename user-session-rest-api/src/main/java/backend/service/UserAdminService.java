@@ -1,6 +1,6 @@
 package backend.service;
 
-import backend.model.entity.UserEntity;
+import backend.entity.UserEntity;
 import backend.repository.UserRepository;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;

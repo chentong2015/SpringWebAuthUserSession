@@ -1,6 +1,6 @@
 package backend.repository;
 
-import backend.model.entity.UserEntity;
+import backend.entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

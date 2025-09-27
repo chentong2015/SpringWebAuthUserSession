@@ -1,4 +1,4 @@
-package backend.model.bean;
+package backend.session;
 
 public class TokenState {
 

@@ -9,7 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jwt.JwtTokenProvider;
-import backend.model.entity.UserEntity;
+import backend.entity.UserEntity;
 import backend.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -49,6 +49,7 @@ public class TokenRequestFilter extends OncePerRequestFilter {
             authentication = new InvalidAuthenticationToken();
         }
 
+        // TODO. 将授权后的实例对象存储到SecurityContextHolder中，用于在系统中获取
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
     }

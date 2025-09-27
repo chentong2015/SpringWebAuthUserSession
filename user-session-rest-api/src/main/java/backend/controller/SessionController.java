@@ -1,6 +1,6 @@
 package backend.controller;
 
-import backend.model.bean.TokenState;
+import backend.session.TokenState;
 import backend.session.CookieManager;
 import backend.session.TokenHelper;
 import jakarta.servlet.http.HttpServletRequest;

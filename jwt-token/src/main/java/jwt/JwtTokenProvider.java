@@ -8,6 +8,7 @@ import java.util.Date;
 // JWT生成代码: 签名算法 + Payload信息设置 + SecretKey
 public class JwtTokenProvider {
 
+    // ISSUER 发行人的名称
     private static final String ISSUER_NAME = "TOKEN Provider";
 
     private JwtTokenProvider() {

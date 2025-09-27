@@ -1,4 +1,4 @@
-package backend.model.bean;
+package backend.model;
 
 // 用户注册时提供的完整信息
 public class UserRequest {

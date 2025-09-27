@@ -1,14 +1,13 @@
 package backend.controller;
 
 import backend.exception.ResourceConflictException;
-import backend.model.bean.PasswordChanger;
-import backend.model.bean.UserRequest;
-import backend.model.entity.UserEntity;
+import backend.model.PasswordChangeRequest;
+import backend.model.UserRequest;
+import backend.entity.UserEntity;
 import backend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -51,16 +50,15 @@ public class UserController {
     }
 
     @PostMapping("/changePassword")
-    public ResponseEntity<?> changePassword(@RequestBody PasswordChanger passwordChanger) {
-        this.userService.changePassword(passwordChanger);
+    public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest) {
+        this.userService.changePassword(passwordChangeRequest);
 
         Map<String, String> result = new HashMap<>();
         result.put("result", "success");
         return ResponseEntity.accepted().body(result);
     }
 
-    // TODO. 从SecurityContextHolder获取有效授权的对象
-    // 如果是Token被验证成功，获取的对象为自定义的BasedTokenAuthentication对象
+    // TODO. 从SecurityContextHolder获取Auth授权成功的BasedTokenAuthentication对象
     @GetMapping("/whoami")
     public UserEntity user() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

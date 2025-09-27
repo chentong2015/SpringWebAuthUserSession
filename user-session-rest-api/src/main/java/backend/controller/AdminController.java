@@ -1,8 +1,7 @@
 package backend.controller;
 
-import backend.model.entity.UserEntity;
+import backend.entity.UserEntity;
 import backend.service.UserAdminService;
-import backend.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

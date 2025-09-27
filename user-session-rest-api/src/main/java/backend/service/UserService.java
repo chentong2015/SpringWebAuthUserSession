@@ -1,10 +1,10 @@
 package backend.service;
 
-import backend.model.bean.PasswordChanger;
-import backend.model.bean.RoleName;
-import backend.model.bean.UserRequest;
-import backend.model.entity.RoleEntity;
-import backend.model.entity.UserEntity;
+import backend.model.PasswordChangeRequest;
+import backend.model.RoleName;
+import backend.model.UserRequest;
+import backend.entity.RoleEntity;
+import backend.entity.UserEntity;
 import backend.repository.RoleRepository;
 import backend.repository.UserRepository;
 import org.springframework.security.core.Authentication;
@@ -52,7 +52,7 @@ public class UserService {
     }
 
     // 在Auth授权登录成功后，修改用户密码
-    public void changePassword(PasswordChanger passwordChanger) {
+    public void changePassword(PasswordChangeRequest passwordChanger) {
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         UserEntity userEntity = this.userRepository.findByUsername(currentUser.getName()).orElse(null);
         if (userEntity == null) {
