@@ -1,8 +1,9 @@
-package backend.session.token;
+package backend.session;
 
 import backend.session.auth.InvalidAuthenticationToken;
 import backend.session.auth.BasedTokenAuthentication;
 import backend.session.auth.ValidAuthenticationToken;
+import backend.session.token.TokenHelper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-// TODO. OncePerRequestFilter 关于API请求的单次过滤器
+// TODO. OncePerRequestFilter 关于API请求的单次过滤器(Web安全的核心)
 @Component
 public class TokenRequestFilter extends OncePerRequestFilter {
 
