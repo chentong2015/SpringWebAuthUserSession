@@ -1,11 +1,11 @@
 package backend.config;
 
-import backend.config.handler.AuthEntryPointHandler;
-import backend.config.handler.AuthLoginFailureHandler;
-import backend.config.handler.AuthLoginSuccessHandler;
-import backend.config.handler.MyLogoutSuccessHandler;
-import backend.config.filter.TokenRequestFilter;
-import backend.session.TokenHelper;
+import backend.handler.AuthEntryPointHandler;
+import backend.handler.AuthLoginFailureHandler;
+import backend.handler.AuthLoginSuccessHandler;
+import backend.handler.MyLogoutSuccessHandler;
+import backend.session.token.TokenHelper;
+import backend.session.token.TokenRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

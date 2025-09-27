@@ -1,4 +1,4 @@
-package backend.config.handler;
+package backend.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

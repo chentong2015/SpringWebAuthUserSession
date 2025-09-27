@@ -3,7 +3,7 @@ package backend.controller;
 import backend.exception.ResourceConflictException;
 import backend.model.PasswordChangeRequest;
 import backend.model.UserRequest;
-import backend.entity.UserEntity;
+import backend.model.entity.UserEntity;
 import backend.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

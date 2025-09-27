@@ -1,10 +1,10 @@
-package backend.config.handler;
+package backend.handler;
 
-import backend.entity.UserEntity;
-import backend.session.TokenState;
+import backend.model.entity.UserEntity;
+import backend.session.token.TokenState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jwt.JwtTokenProvider;
-import backend.session.TokenHelper;
+import backend.session.token.TokenHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;

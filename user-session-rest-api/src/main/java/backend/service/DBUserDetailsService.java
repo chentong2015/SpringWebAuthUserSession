@@ -1,6 +1,6 @@
 package backend.service;
 
-import backend.entity.UserEntity;
+import backend.model.entity.UserEntity;
 import backend.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

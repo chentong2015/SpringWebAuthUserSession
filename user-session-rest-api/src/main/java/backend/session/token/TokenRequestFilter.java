@@ -1,15 +1,14 @@
-package backend.config.filter;
+package backend.session.token;
 
-import backend.session.TokenHelper;
-import backend.session.token.InvalidAuthenticationToken;
-import backend.session.token.BasedTokenAuthentication;
-import backend.session.token.ValidAuthenticationToken;
+import backend.session.auth.InvalidAuthenticationToken;
+import backend.session.auth.BasedTokenAuthentication;
+import backend.session.auth.ValidAuthenticationToken;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jwt.JwtTokenProvider;
-import backend.entity.UserEntity;
+import backend.model.entity.UserEntity;
 import backend.repository.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -41,9 +40,8 @@ public class TokenRequestFilter extends OncePerRequestFilter {
                 throw new UsernameNotFoundException("No user found");
             }
             authentication = new BasedTokenAuthentication(userEntity, authToken);
-        } else if (WebPageFilter.isValidPath(request)) {
+        } else if (isValidPath(request)) {
             // 返回一个能够被认证成功的AuthenticationToken对象
-            // 允许用户访问特定路径的URL
             authentication = new ValidAuthenticationToken();
         } else {
             authentication = new InvalidAuthenticationToken();
@@ -52,5 +50,11 @@ public class TokenRequestFilter extends OncePerRequestFilter {
         // TODO. 将授权后的实例对象存储到SecurityContextHolder中，用于在系统中获取
         SecurityContextHolder.getContext().setAuthentication(authentication);
         chain.doFilter(request, response);
+    }
+
+    // 允许用户访问特定路径的URL
+    private boolean isValidPath(HttpServletRequest request) {
+        String url = request.getRequestURL().toString();
+        return url.endsWith(".html") || url.endsWith(".js");
     }
 }

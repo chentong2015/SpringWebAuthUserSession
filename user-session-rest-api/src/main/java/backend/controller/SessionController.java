@@ -1,8 +1,8 @@
 package backend.controller;
 
-import backend.session.TokenState;
+import backend.session.token.TokenState;
 import backend.session.CookieManager;
-import backend.session.TokenHelper;
+import backend.session.token.TokenHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jwt.JwtTokenProvider;

@@ -1,4 +1,4 @@
-package backend.session;
+package backend.session.token;
 
 public class TokenState {
 

@@ -1,4 +1,4 @@
-package backend.config.handler;
+package backend.handler;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
