@@ -3,7 +3,7 @@
 function handleLoginClick(e) {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
-    fetch('http://localhost:8080/api/login?username=' + username + '&password=' + password, {
+    fetch('http://localhost:8080/api/login?username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password), {
        method: 'POST',
     }).then(response => {
        return response.json();
