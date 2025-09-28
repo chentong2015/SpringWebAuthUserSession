@@ -51,8 +51,8 @@ function handleRegistration(e) {
 
 // 处理用户更改密码的请求
 function handleChangePassword(e) {
-    const oldPassword = document.getElementById("oldPassword").value;
     const newPassword = document.getElementById("newPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
     fetch('http://localhost:8080/api/changePassword', {
        method: 'POST',
        credentials: 'include',
@@ -60,13 +60,13 @@ function handleChangePassword(e) {
           'Content-Type': 'application/json; charset=utf-8'
        },
        body: JSON.stringify({
-          "oldPassword": oldPassword,
-          "newPassword": newPassword
+          "newPassword": newPassword,
+          "confirmPassword": confirmPassword
        })
     }).then(response => {
         return response.json();
     }).then(data => {
-        console.log(data);
+        alert("Change password successfully");
     }).catch(error => {
         alert("Change password request failed");
     });
