@@ -45,7 +45,7 @@ public class UserService {
         // TODO. 为不同类型用户分配不同权限Authority
         List<RoleEntity> authorities = new ArrayList<>();
         authorities.add(roleRepository.findByName(RoleName.ROLE_USER));
-        if (userRequest.getUsername().equals("admin")) {
+        if (userRequest.getUsername().startsWith("admin")) {
             authorities.add(roleRepository.findByName(RoleName.ROLE_ADMIN));
         }
         user.setAuthorities(authorities);

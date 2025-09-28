@@ -66,7 +66,7 @@ function handleChangePassword(e) {
     }).then(response => {
         return response.json();
     }).then(data => {
-        alert("Change password successfully");
+        console.log(data);
     }).catch(error => {
         alert("Change password request failed");
     });
