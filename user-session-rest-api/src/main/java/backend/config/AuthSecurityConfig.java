@@ -4,7 +4,7 @@ import backend.handler.AuthEntryPointHandler;
 import backend.handler.AuthLoginFailureHandler;
 import backend.handler.AuthLoginSuccessHandler;
 import backend.handler.MyLogoutSuccessHandler;
-import backend.session.token.TokenHelper;
+import backend.session.CookieTokenHelper;
 import backend.session.TokenRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -66,7 +66,7 @@ public class AuthSecurityConfig {
                  logout.logoutUrl("/api/logout").permitAll();
                  logout.logoutSuccessHandler(new MyLogoutSuccessHandler());
                  logout.invalidateHttpSession(true);
-                 logout.deleteCookies(TokenHelper.getAuthCookieName());
+                 logout.deleteCookies(CookieTokenHelper.getAuthCookieName());
                  logout.deleteCookies("JSESSIONID");
              });
         return httpSecurity.build();

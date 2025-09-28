@@ -9,16 +9,16 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class DBUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceDB implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    public DBUserDetailsService(UserRepository userRepository) {
+    public UserDetailsServiceDB(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     // Hibernate 底层会执行的Query
-    // select id,firstname,lastname,password,username from t_user where username=?
+    // select id,firstname, lastname, password, username from t_user where username=?
     @Override
     public UserEntity loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<UserEntity> userEntity = userRepository.findByUsername(username);

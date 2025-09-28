@@ -1,6 +1,6 @@
 package backend.config;
 
-import backend.service.DBUserDetailsService;
+import backend.service.UserDetailsServiceDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AuthUserConfig {
 
     @Autowired
-    private DBUserDetailsService dbUserDetailsService;
+    private UserDetailsServiceDB dbUserDetailsService;
 
     @Bean
     public PasswordEncoder globalPasswordEncoder() {

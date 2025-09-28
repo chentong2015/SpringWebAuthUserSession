@@ -3,7 +3,6 @@ package backend.session;
 import backend.session.auth.InvalidAuthenticationToken;
 import backend.session.auth.BasedTokenAuthentication;
 import backend.session.auth.ValidAuthenticationToken;
-import backend.session.token.TokenHelper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,7 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-// TODO. OncePerRequestFilter 关于API请求的单次过滤器(Web安全的核心)
+// TODO. OncePerRequestFilter 关于API请求的单次过滤器
 @Component
 public class TokenRequestFilter extends OncePerRequestFilter {
 
@@ -29,9 +28,10 @@ public class TokenRequestFilter extends OncePerRequestFilter {
         this.userRepository = userRepository;
     }
 
+    // 返回关于Token认证结果的实例对象
     @Override
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        String authToken = TokenHelper.fetchToken(request);
+        String authToken = CookieTokenHelper.fetchToken(request);
         Authentication authentication;
         if (authToken != null) {
             // 从token中解析用户名称，验证token的有效性
@@ -53,9 +53,9 @@ public class TokenRequestFilter extends OncePerRequestFilter {
         chain.doFilter(request, response);
     }
 
-    // 允许用户访问特定路径的URL
+    // 允许用户访问特定路径的URL: 允许访问静态html文件
     private boolean isValidPath(HttpServletRequest request) {
         String url = request.getRequestURL().toString();
-        return url.endsWith(".html") || url.endsWith(".js");
+        return  url.endsWith(".html") || url.endsWith(".js");
     }
 }

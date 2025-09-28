@@ -18,12 +18,10 @@ public class MyLogoutSuccessHandler implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse response,
                                 Authentication authentication) throws IOException {
+        response.setContentType("application/json");
+
         Map<String, String> result = new HashMap<>();
         result.put("Result", "Logout Successfully");
-
-        response.setContentType("application/json");
-        response.sendRedirect("/login.html");
-
         ObjectMapper objectMapper = new ObjectMapper();
         response.getWriter().write(objectMapper.writeValueAsString(result));
         response.setStatus(HttpServletResponse.SC_OK);

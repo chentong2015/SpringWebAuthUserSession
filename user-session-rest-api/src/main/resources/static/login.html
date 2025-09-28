@@ -3,18 +3,18 @@
    <body>
       <h1>Login Page</h1>
       <div>
-         Username: <input name="username" id="username" type="text"/> <br><br>
-         Password: <input name="password" id="password" type="password"/> <br><br>
+         Username: <input name="username" id="username" type="text"/> * <br><br>
+         Password: <input name="password" id="password" type="password"/> * <br><br>
          <button id="LoginUser">Login Account</button>
       </div><br>
 
       Please create a new account firstly:
       <button type="button" onclick="window.location.href='register.html'">Register Account</button><br><br>
 
-      Visit Public Page
+      Visit Public Page:
       <button type="button" onclick="window.location.href='public.html'">Public Space</button>
 
-      <script src="../js/functions.js"></script>
+      <script src="js/functions.js"></script>
       <script>
           var loginButton = document.getElementById("LoginUser");
           loginButton.addEventListener("click", handleLoginClick);

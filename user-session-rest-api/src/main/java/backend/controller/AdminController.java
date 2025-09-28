@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(value = "/api", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminController {
 
-    private UserAdminService adminService;
+    private final UserAdminService adminService;
 
     public AdminController(UserAdminService adminService) {
         this.adminService = adminService;

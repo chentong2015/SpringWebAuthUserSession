@@ -30,6 +30,10 @@ public class UserService {
         this.pwdEncoder = passwordEncoder;
     }
 
+    public UserEntity findUserByUsername(String username) throws UsernameNotFoundException {
+        return this.userRepository.findByUsername(username).orElse(null);
+    }
+
     // 注册用户时，持久化存储用户的信息
     public UserEntity persistUser(UserRequest userRequest) {
         UserEntity user = new UserEntity();
@@ -57,18 +61,19 @@ public class UserService {
             throw new UsernameNotFoundException("No user found");
         }
 
-        // 由于用户已经登录，因此不用再返回验证老密码
-        // String oldPasswordEncoded = pwdEncoder.encode(passwordChanger.getOldPassword());
-        // if (!oldPasswordEncoded.equals(userEntity.getPassword())) {
-        //     throw new RuntimeException("Old password is wrong");
-        // }
+        // 验证提供的老密码是否正确
+        String oldPasswordEncoded = pwdEncoder.encode(passwordChanger.getOldPassword());
+        if (!oldPasswordEncoded.equals(userEntity.getPassword())) {
+            throw new RuntimeException("Old password is wrong");
+        }
+
+        // 必须验证密码符合特定的Policy
+        if (passwordChanger.getNewPassword().isEmpty()) {
+            throw new RuntimeException("New password cannot be empty");
+        }
 
         String newPasswordEncoded = pwdEncoder.encode(passwordChanger.getNewPassword());
         userEntity.setPassword(newPasswordEncoded);
         this.userRepository.save(userEntity);
-    }
-
-    public UserEntity findUserByUsername(String username) throws UsernameNotFoundException {
-        return this.userRepository.findByUsername(username).orElse(null);
     }
 }

@@ -1,15 +1,15 @@
-package backend.session.token;
+package backend.session;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 // 从Request请求中获取Cookie数据/Token数据
-public class TokenHelper {
+public class CookieTokenHelper {
 
     private static final String AUTH_TOKEN_NANE = "AUTH-TOKEN";
 
-    private TokenHelper() {
+    private CookieTokenHelper() {
     }
 
     // 从request请求中解析token数据，token可能来自不同位置

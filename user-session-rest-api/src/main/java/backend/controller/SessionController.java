@@ -1,16 +1,12 @@
 package backend.controller;
 
-import backend.model.entity.UserEntity;
-import backend.session.token.TokenState;
 import backend.session.CookieManager;
-import backend.session.token.TokenHelper;
+import backend.session.CookieTokenHelper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jwt.JwtTokenProvider;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,20 +27,18 @@ public class SessionController {
     // - 用户在有效期后需要重新登录，再来进行刷新
     @GetMapping("/session/refresh")
     public ResponseEntity<?> refreshAuthenticationToken(HttpServletRequest request, HttpServletResponse response) {
-        String authToken = TokenHelper.fetchToken(request);
+        String authToken = CookieTokenHelper.fetchToken(request);
         if (authToken == null || !JwtTokenProvider.canTokenBeRefreshed(authToken)) {
             return ResponseEntity.badRequest().build();
         }
 
         // 将更新后的token设置到response中，返回并设置到cookie中
         String refreshedToken = JwtTokenProvider.refreshJwtToken(authToken);
-        TokenHelper.addTokenToResponse(response, refreshedToken);
+        CookieTokenHelper.addTokenToResponse(response, refreshedToken);
 
-        // 判断当前认证的用户是否具有Admin角色
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserEntity user = (UserEntity) authentication.getPrincipal();
+        return ResponseEntity.ok().build();
 
-        TokenState tokenState = new TokenState(user.hasRoleAdmin(), refreshedToken, 600);
-        return ResponseEntity.ok().body(tokenState);
+        // TokenState tokenState = new TokenState(refreshedToken, 600);
+        // return ResponseEntity.ok().body(tokenState);
     }
 }

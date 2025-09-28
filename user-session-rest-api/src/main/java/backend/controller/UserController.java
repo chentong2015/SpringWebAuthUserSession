@@ -40,6 +40,10 @@ public class UserController {
     // 注册用户，持久化到UserDetailsService的存储数据库
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRequest userRequest) {
+        if (userRequest.getUsername().isEmpty() || userRequest.getPassword().isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
         UserEntity existUser = this.userService.findUserByUsername(userRequest.getUsername());
         if (existUser != null) {
             throw new ResourceConflictException(userRequest.getUsername(), "Username already exists");
@@ -51,6 +55,8 @@ public class UserController {
 
     @PostMapping("/changePassword")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest) {
+
+
         this.userService.changePassword(passwordChangeRequest);
 
         Map<String, String> result = new HashMap<>();

@@ -1,10 +1,10 @@
 package backend.handler;
 
+import backend.model.LoginState;
 import backend.model.entity.UserEntity;
-import backend.session.token.TokenState;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jwt.JwtTokenProvider;
-import backend.session.token.TokenHelper;
+import backend.session.CookieTokenHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -26,16 +26,17 @@ public class AuthLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
 
         // 从Authentication中拿到验证成功的UserEntity用户信息
         UserEntity user = (UserEntity) authentication.getPrincipal();
-        String jwsToken = JwtTokenProvider.generateJwtToken(user.getUsername());
+        String jwtToken = JwtTokenProvider.generateJwtToken(user.getUsername());
 
         // 将生成的Session Token设置到Response
-        TokenHelper.addTokenToResponse(response, jwsToken);
+        CookieTokenHelper.addTokenToResponse(response, jwtToken);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        TokenState tokenState = new TokenState(user.hasRoleAdmin(), jwsToken, 600);
-        String jwtResponse = objectMapper.writeValueAsString(tokenState);
-        response.setContentType("application/json");
+        LoginState loginState = new LoginState(user.hasRoleAdmin());
+        String jwtResponse = objectMapper.writeValueAsString(loginState);
 
+        // TODO. 设置ContentType用于前端解析response.json()
+        response.setContentType("application/json");
         response.getWriter().write(jwtResponse);
     }
 }

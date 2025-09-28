@@ -1,4 +1,5 @@
-// 处理登录的方法
+// TODO. 前端不能设置HttpOnly的属性
+// document.cookie = `AUTH-TOKEN=${data.access_token}; path=/; max-age=${data.expires_in}`;
 function handleLoginClick(e) {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
@@ -8,11 +9,14 @@ function handleLoginClick(e) {
        return response.json();
     }).then(data => {
        console.log(data);
-       // TODO. 前端不能设置HttpOnly的属性。直接在后段执行Redirect重定向
-       // 将token设置到cookie中(有效期=expires_in秒)
-       // document.cookie = `AUTH-TOKEN=${data.access_token}; path=/; max-age=${data.expires_in}`;
+       // 根据返回的LoginState状态进行跳转
+       if (data.isForAdmin) {
+          window.location.href="admin.html";
+       } else {
+          window.location.href="user.html";
+       }
     }).catch(error => {
-       alert("Login user failed");
+       alert("Login user failed", error);
     });
 }
 
@@ -63,6 +67,7 @@ function handleChangePassword(e) {
         return response.json();
     }).then(data => {
         console.log(data);
+        alert("Change password request successfully");
     }).catch(error => {
         alert("Change password request failed");
     });
@@ -78,6 +83,7 @@ function makeGetRequest(url, operation) {
         return response.json();
     }).then(data => {
         console.log(operation, data);
+        alert(data);
     }).catch(error => {
         alert(operation + " request failed");
     });
@@ -106,6 +112,8 @@ function handleLogoutClick(e) {
     .then(response => response.json())
     .then(data => {
         console.log(data);
+        // 登出后退回到登录页面
+        window.location.href="login.html";
     }).catch(error => {
         alert("Logout failed, please login first", error);
     });
