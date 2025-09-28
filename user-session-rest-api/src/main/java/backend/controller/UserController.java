@@ -55,8 +55,6 @@ public class UserController {
 
     @PostMapping("/changePassword")
     public ResponseEntity<?> changePassword(@RequestBody PasswordChangeRequest passwordChangeRequest) {
-
-
         this.userService.changePassword(passwordChangeRequest);
 
         Map<String, String> result = new HashMap<>();

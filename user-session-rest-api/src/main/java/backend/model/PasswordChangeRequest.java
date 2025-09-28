@@ -2,23 +2,23 @@ package backend.model;
 
 public class PasswordChangeRequest {
 
-    private String oldPassword;
     private String newPassword;
+    private String confirmPassword;
 
     public PasswordChangeRequest() {
     }
 
-    public PasswordChangeRequest(String oldPassword, String newPassword) {
-        this.oldPassword = oldPassword;
+    public PasswordChangeRequest(String newPassword, String confirmPassword) {
         this.newPassword = newPassword;
+        this.confirmPassword = confirmPassword;
     }
 
-    public String getOldPassword() {
-        return oldPassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 
     public String getNewPassword() {

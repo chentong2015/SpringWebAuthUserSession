@@ -54,6 +54,7 @@ public class UserService {
     }
 
     // 在Auth授权登录成功后，修改用户密码
+    // 因为是在用户空间完成的，因此不在需要原始的密码
     public void changePassword(PasswordChangeRequest passwordChanger) {
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         UserEntity userEntity = this.userRepository.findByUsername(currentUser.getName()).orElse(null);
@@ -61,15 +62,14 @@ public class UserService {
             throw new UsernameNotFoundException("No user found");
         }
 
-        // 验证提供的老密码是否正确
-        String oldPasswordEncoded = pwdEncoder.encode(passwordChanger.getOldPassword());
-        if (!oldPasswordEncoded.equals(userEntity.getPassword())) {
-            throw new RuntimeException("Old password is wrong");
-        }
-
         // 必须验证密码符合特定的Policy
         if (passwordChanger.getNewPassword().isEmpty()) {
             throw new RuntimeException("New password cannot be empty");
+        }
+
+        // 必须满足两次的密码完全一致
+        if (!passwordChanger.getNewPassword().equals(passwordChanger.getConfirmPassword())) {
+            throw new RuntimeException("New and confirm passwords are not the same.");
         }
 
         String newPasswordEncoded = pwdEncoder.encode(passwordChanger.getNewPassword());
