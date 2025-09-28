@@ -18,9 +18,9 @@
          Public Space
       </button>
 
-      <!-- TODO. encodeURIComponent()方法的使用
-             防止用户名中包含特殊字符破坏URL结构, 导致请求出错或数据解析失败 -->
+      <script src="../js/functions.js"></script>
       <script>
+         <!-- TODO. encodeURIComponent() 防止用户名中包含特殊字符破坏URL结构, 导致请求出错或数据解析失败 -->
          var showMeInfoButton = document.getElementById("ShowMeInfo");
          showMeInfoButton.addEventListener("click", function (e) {
              const name = document.getElementById("username").value;
