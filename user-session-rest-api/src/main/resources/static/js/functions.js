@@ -67,7 +67,6 @@ function handleChangePassword(e) {
         return response.json();
     }).then(data => {
         console.log(data);
-        alert("Change password request successfully");
     }).catch(error => {
         alert("Change password request failed");
     });
@@ -83,7 +82,6 @@ function makeGetRequest(url, operation) {
         return response.json();
     }).then(data => {
         console.log(operation, data);
-        alert(data);
     }).catch(error => {
         alert(operation + " request failed");
     });
