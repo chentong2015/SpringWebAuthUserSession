@@ -2,17 +2,22 @@ package backend.session.token;
 
 public class TokenState {
 
+    private boolean isAdmin;
     private String access_token;
     private Long expires_in;
 
-    public TokenState() {
-        this.access_token = null;
-        this.expires_in = null;
-    }
-
-    public TokenState(String access_token, long expires_in) {
+    public TokenState(boolean isAdmin, String access_token, long expires_in) {
+        this.isAdmin = isAdmin;
         this.access_token = access_token;
         this.expires_in = expires_in;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     public String getAccess_token() {

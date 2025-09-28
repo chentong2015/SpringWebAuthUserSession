@@ -3,7 +3,6 @@ package backend.model;
 // 用户注册时提供的完整信息
 public class UserRequest {
 
-    private Long id;
     private String username;
     private String password;
     private String firstname;
@@ -39,13 +38,5 @@ public class UserRequest {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }

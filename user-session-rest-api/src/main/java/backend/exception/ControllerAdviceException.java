@@ -13,7 +13,7 @@ public class ControllerAdviceException {
    @ExceptionHandler(ResourceConflictException.class)
    public ResponseEntity<ExceptionResponse> resourceConflict(ResourceConflictException ex) {
        ExceptionResponse response = new ExceptionResponse();
-       response.setErrorId(ex.getResourceId());
+       response.setErrorUsername(ex.getResourceUsername());
        response.setErrorCode("Error Conflict");
        response.setErrorMessage(ex.getMessage());
 

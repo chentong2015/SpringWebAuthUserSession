@@ -27,11 +27,19 @@ public class JwtTokenProvider {
 
     // 刷新Token的过期时间
     public static String refreshJwtToken(String jwtToken) {
-        if (canTokenBeRefreshed(jwtToken)) {
-            String username = getUsernameFromJwtToken(jwtToken);
-            return generateJwtToken(username);
-        }
-        return jwtToken;
+        String username = getUsernameFromJwtToken(jwtToken);
+        return generateJwtToken(username);
+    }
+
+    // 从签名后的Token中获取用户信息(必须使用相同SecretKey)
+    // Sets the signature verification SecretKey used to verify all encountered JWS signatures.
+    public static String getUsernameFromJwtToken(String jwtToken) {
+        return Jwts.parser()
+                .verifyWith(SignedKey.getSigningKey())
+                .build()
+                .parseSignedClaims(jwtToken)
+                .getPayload()  // TODO. 替换废弃的getBody()方法
+                .getSubject(); // TODO. 从Payload Claims中获取签名信息
     }
 
     // 只有当前时间在Token过期时间之前，才能刷新Token
@@ -50,14 +58,5 @@ public class JwtTokenProvider {
                .getExpiration();
     }
 
-    // 从签名后的Token中获取用户信息(必须使用相同SecretKey)
-    // Sets the signature verification SecretKey used to verify all encountered JWS signatures.
-    public static String getUsernameFromJwtToken(String jwtToken) {
-        return Jwts.parser()
-                .verifyWith(SignedKey.getSigningKey())
-                .build()
-                .parseSignedClaims(jwtToken)
-                .getPayload()  // TODO. 替换废弃的getBody()方法
-                .getSubject(); // TODO. 从Payload Claims中获取签名信息
-    }
+
 }

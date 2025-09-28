@@ -3,14 +3,14 @@ package backend.exception;
 public class ResourceConflictException extends RuntimeException {
 
     private static final long serialVersionUID = 1791564636123821405L;
-    private Long resourceId;
+    private final String resourceUsername;
 
-    public ResourceConflictException(Long resourceId, String message) {
+    public ResourceConflictException(String resourceUsername, String message) {
         super(message);
-        this.resourceId = resourceId;
+        this.resourceUsername = resourceUsername;
     }
 
-    public Long getResourceId() {
-        return resourceId;
+    public String getResourceUsername() {
+        return resourceUsername;
     }
 }

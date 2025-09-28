@@ -1,5 +1,6 @@
 package backend.model.entity;
 
+import backend.model.RoleName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -15,6 +16,7 @@ public class UserEntity implements UserDetails, Serializable {
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username")
@@ -34,8 +36,8 @@ public class UserEntity implements UserDetails, Serializable {
     // TODO. 多对多关联表，使用Cascade级联操作并联合查询
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "t_user_role",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+        joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<RoleEntity> authorities;
 
     public Long getId() {
@@ -89,8 +91,17 @@ public class UserEntity implements UserDetails, Serializable {
         this.authorities = authorities;
     }
 
+    public boolean hasRoleAdmin() {
+        for (RoleEntity roleEntity: this.authorities) {
+            if (roleEntity.getAuthority().equals(RoleName.ROLE_ADMIN.name())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // TODO. 以下参数用于确定UserDetails账号的有效性
-    //  阻塞或者过期用户, 避免用户密码被暴力破解
+    // 阻塞或者过期用户, 避免用户密码被暴力破解
     @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {

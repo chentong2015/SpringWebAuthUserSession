@@ -2,19 +2,19 @@ package backend.exception;
 
 public class ExceptionResponse {
 
-    private Long errorId;
+    private String errorUsername;
     private String errorCode;
     private String errorMessage;
 
     public ExceptionResponse() {
     }
 
-    public Long getErrorId() {
-        return errorId;
+    public String getErrorUsername() {
+        return errorUsername;
     }
 
-    public void setErrorId(Long errorId) {
-        this.errorId = errorId;
+    public void setErrorUsername(String errorUsername) {
+        this.errorUsername = errorUsername;
     }
 
     public String getErrorCode() {

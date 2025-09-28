@@ -31,16 +31,14 @@ public class UserService {
     }
 
     // 注册用户时，持久化存储用户的信息
-    // 持久化UserEntity对象之前必须先设置它的ID
     public UserEntity persistUser(UserRequest userRequest) {
         UserEntity user = new UserEntity();
-        user.setId(userRequest.getId());
         user.setUsername(userRequest.getUsername());
         user.setPassword(pwdEncoder.encode(userRequest.getPassword()));
         user.setFirstname(userRequest.getFirstname());
         user.setLastname(userRequest.getLastname());
 
-        // 为不同类型用户分配不同权限Authority
+        // TODO. 为不同类型用户分配不同权限Authority
         List<RoleEntity> authorities = new ArrayList<>();
         authorities.add(roleRepository.findByName(RoleName.ROLE_USER));
         if (userRequest.getUsername().equals("admin")) {

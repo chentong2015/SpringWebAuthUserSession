@@ -26,7 +26,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    // 注册时根据用户提供的Email发送验证码(包含有效期)
+    // TODO. 注册时根据用户提供的Email发送验证码(包含有效期, 需要存储)
     @PostMapping("/registration/code")
     public ResponseEntity<?> getRegistrationCode(@RequestParam(name = "email") String email) {
         SecureRandom random = new SecureRandom();
@@ -36,13 +36,13 @@ public class UserController {
         return ResponseEntity.ok().body("Code has been send to your email");
     }
 
-    // 注册用户持久化到UserDetailsService的存储数据库
-    // 请求的UserRequest中应该包含注册的验证码，否则无法完成注册
+    // TODO. 请求的UserRequest中应该检测验证码，否则无法完成注册
+    // 注册用户，持久化到UserDetailsService的存储数据库
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRequest userRequest) {
         UserEntity existUser = this.userService.findUserByUsername(userRequest.getUsername());
         if (existUser != null) {
-            throw new ResourceConflictException(userRequest.getId(), "Username already exists");
+            throw new ResourceConflictException(userRequest.getUsername(), "Username already exists");
         }
 
         UserEntity user = this.userService.persistUser(userRequest);

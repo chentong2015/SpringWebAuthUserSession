@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-   <head>
-      <link rel="shortcut icon" href="#">
-   </head>
+<html>
    <body>
       <h1>User Testing Page</h1>
-      <input name="username" id="username" type="text"/> <br><br>
+      Username: <input name="username" id="username" type="text"/>
       <button type="button" id="ShowMeInfo">Show Me</button>
-      <p></p>
+      <br><br>
       <button type="button" id="WhoamiInfo">Whoami</button><br><br><br>
 
       Old Password: <input name="oldPassword" id="oldPassword" type="text"/> <br><br>
@@ -17,61 +14,31 @@
       <button type="button" id="LogoutUser">Log Out</button><br><br><br>
 
       <p>Visit Public Secure Web Page</p>
-      <button type="button" onclick="window.location.href='public-secure.html'">Public Space</button>
+      <button type="button" onclick="window.location.href='public-secure.html'">
+         Public Space
+      </button>
 
+      <!-- TODO. encodeURIComponent()方法的使用
+             防止用户名中包含特殊字符破坏URL结构, 导致请求出错或数据解析失败 -->
       <script>
          var showMeInfoButton = document.getElementById("ShowMeInfo");
          showMeInfoButton.addEventListener("click", function (e) {
              const name = document.getElementById("username").value;
-             fetch('http://localhost:8080/api/showme/' + name,
-             {
-                method: 'GET',
-                credentials: 'include'
-             })
-             .then(response => console.log(response));
+             const url = 'http://localhost:8080/api/showme/' + encodeURIComponent(name);
+             makeGetRequest(url, "ShowMe");
          });
 
          var whoamiInfoButton = document.getElementById("WhoamiInfo");
          whoamiInfoButton.addEventListener("click", function (e) {
-             fetch('http://localhost:8080/api/whoami',
-             {
-                method: 'GET',
-                credentials: 'include'
-             })
-             .then(response => console.log(response));
+             const url = 'http://localhost:8080/api/whoami';
+             makeGetRequest(url, "Whoami");
          });
 
          var updatePasswordButton = document.getElementById("UpdatePassword");
-         updatePasswordButton.addEventListener("click", function (e) {
-             const oldPassword = document.getElementById("oldPassword").value;
-             const newPassword = document.getElementById("newPassword").value;
-             fetch('http://localhost:8080/api/changePassword',
-             {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                   'Content-Type': 'application/json; charset=utf-8'
-                },
-                body: JSON.stringify(
-                {
-                   "oldPassword": oldPassword,
-                   "newPassword": newPassword
-                })
-             })
-             .then(response => console.log(response));
-         });
+         updatePasswordButton.addEventListener("click", handleChangePassword);
 
          var logoutUserButton = document.getElementById("LogoutUser");
-         logoutUserButton.addEventListener("click", function (e) {
-             fetch('http://localhost:8080/api/logout',
-             {
-                method: 'POST',
-                credentials: 'include'
-             })
-             .then(response => console.log(response));
-
-             window.location.href="login.html";
-         });
+         logoutUserButton.addEventListener("click", handleLogoutClick);
       </script>
    </body>
 </html>
