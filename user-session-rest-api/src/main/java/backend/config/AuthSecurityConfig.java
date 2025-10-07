@@ -34,8 +34,11 @@ public class AuthSecurityConfig {
              .csrf(AbstractHttpConfigurer::disable)
 
              // Client must send its credentials every time when tries to access a protected resource
-             .sessionManagement(session ->
-                     session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+             .sessionManagement(session -> {
+                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                 // Controls the maximum number of sessions for a user. The default is to allow any number of sessions.
+                 session.maximumSessions(1);
+             })
 
              // 授权异常的处理器(处理401 Unauthorized请求)
              .exceptionHandling(exceptionHandler ->
